@@ -1,0 +1,5 @@
+Flask
+nltk
+openai==0.28
+Gunicorn
+os
