@@ -9,15 +9,15 @@ nltk.download('vader_lexicon')
 nltk.download('punkt')
 
 emotions = {
-    'neutral': {'rate': 0.5, 'volume': 1.0},
-    'happy': {'rate': 0.5, 'volume': 0.6},
-    'sad': {'rate': 0.4, 'volume': 0.4},
-    'angry': {'rate': 0.6, 'volume': 0.75},
-    'excited': {'rate': 0.6, 'volume': 0.6},
-    'fearful': {'rate': 0.5, 'volume': 0.5},
-    'calm': {'rate': 0.45, 'volume': 0.4},
-    'surprised': {'rate': 0.6, 'volume': 0.8},
-    'tender': {'rate': 0.4, 'volume': 0.45}
+    'neutral': {'rate': 0.5, 'volume': 1.0, 'pitch': 1.0},
+    'happy': {'rate': 0.5, 'volume': 0.6, 'pitch': 1.2},
+    'sad': {'rate': 0.4, 'volume': 0.4, 'pitch': 0.8},
+    'angry': {'rate': 0.6, 'volume': 0.75, 'pitch': 1.5},
+    'excited': {'rate': 0.6, 'volume': 0.6, 'pitch': 1.2},
+    'fearful': {'rate': 0.5, 'volume': 0.5, 'pitch': 1.0},
+    'calm': {'rate': 0.45, 'volume': 0.4, 'pitch': 0.8},
+    'surprised': {'rate': 0.6, 'volume': 0.8, 'pitch': 1.0},
+    'tender': {'rate': 0.4, 'volume': 0.45, 'pitch': 0.9}
 }
 
 def map_to_emotion(sentiment_score):
@@ -66,11 +66,13 @@ def generate_story(selected_likes):
         emotion = map_to_emotion(sentiment_score)
         rate = emotions[emotion]['rate']
         volume = emotions[emotion]['volume']
+        pitch = emotions[emotion]['pitch']
         sentences_data.append({
             'sentence': sentence,
             'emotion': emotion,
             'rate': rate,
-            'volume': volume
+            'volume': volume,
+            'pitch': pitch
         })
 
     return sentences_data
@@ -83,6 +85,3 @@ def generate_story_endpoint():
     selected_likes = request_json['selected_likes']
     result = generate_story(selected_likes)
     return jsonify({'result': result})
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
