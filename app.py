@@ -9,15 +9,15 @@ nltk.download('vader_lexicon')
 nltk.download('punkt')
 
 emotions = {
-    'neutral': {'rate': 150, 'volume': 1.0},
-    'happy': {'rate': 150, 'volume': 0.6},
-    'sad': {'rate': 120, 'volume': 0.4},
-    'angry': {'rate': 160, 'volume': 0.75},
-    'excited': {'rate': 160, 'volume': 0.6},
-    'fearful': {'rate': 150, 'volume': 0.5},
-    'calm': {'rate': 140, 'volume': 0.4},
-    'surprised': {'rate': 160, 'volume': 0.8},
-    'tender': {'rate': 140, 'volume': 0.45}
+    'neutral': {'rate': 0.5, 'volume': 1.0},
+    'happy': {'rate': 0.5, 'volume': 0.6},
+    'sad': {'rate': 0.4, 'volume': 0.4},
+    'angry': {'rate': 0.6, 'volume': 0.75},
+    'excited': {'rate': 0.6, 'volume': 0.6},
+    'fearful': {'rate': 0.5, 'volume': 0.5},
+    'calm': {'rate': 0.45, 'volume': 0.4},
+    'surprised': {'rate': 0.6, 'volume': 0.8},
+    'tender': {'rate': 0.4, 'volume': 0.45}
 }
 
 def map_to_emotion(sentiment_score):
