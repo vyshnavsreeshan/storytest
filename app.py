@@ -7,16 +7,17 @@ import openai
 openai.api_key = os.environ.get('API_KEY')
 nltk.download('vader_lexicon')
 nltk.download('punkt')
+
 emotions = {
     'neutral': {'rate': 150, 'volume': 1.0},
-    'happy': {'rate': 150, 'volume': 1.2},
-    'sad': {'rate': 120, 'volume': 0.8},
-    'angry': {'rate': 160, 'volume': 1.5},
-    'excited': {'rate': 160, 'volume': 1.2},
-    'fearful': {'rate': 150, 'volume': 1.0},
-    'calm': {'rate': 140, 'volume': 0.8},
-    'surprised': {'rate': 160, 'volume': 1.0},
-    'tender': {'rate': 140, 'volume': 0.9}
+    'happy': {'rate': 150, 'volume': 0.6},
+    'sad': {'rate': 120, 'volume': 0.4},
+    'angry': {'rate': 160, 'volume': 0.75},
+    'excited': {'rate': 160, 'volume': 0.6},
+    'fearful': {'rate': 150, 'volume': 0.5},
+    'calm': {'rate': 140, 'volume': 0.4},
+    'surprised': {'rate': 160, 'volume': 0.8},
+    'tender': {'rate': 140, 'volume': 0.45}
 }
 
 def map_to_emotion(sentiment_score):
@@ -37,6 +38,7 @@ def map_to_emotion(sentiment_score):
         return 'angry'
     else:
         return 'calm'
+
 
 def generate_story(selected_likes):
     prompt = "Create a prompt for generating a short story with themes including: " + ", ".join(selected_likes)
