@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 import openai
+from openai.error import RateLimitError
 
 openai.api_key = os.environ.get('API_KEY')
 nltk.download('vader_lexicon')
@@ -83,5 +84,12 @@ app = Flask(__name__)
 def generate_story_endpoint():
     request_json = request.get_json()
     selected_likes = request_json['selected_likes']
-    result = generate_story(selected_likes)
-    return jsonify({'result': result})
+    try:
+        result = generate_story(selected_likes)
+        return jsonify({'result': result})
+    except RateLimitError as e:
+        error_message = str(e)
+        return jsonify({'error': error_message}), 429  # Return HTTP status code 429 for rate limit exceeded
+
+if __name__ == "__main__":
+    app.run(debug=True)
