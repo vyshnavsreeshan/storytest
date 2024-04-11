@@ -42,26 +42,28 @@ def map_to_emotion(sentiment_score):
 
 
 def generate_story(selected_likes):
-    prompt = "Create a prompt for generating a short story with themes including: " + ", ".join(selected_likes)
+    prompt = "Create a prompt for generating a short story with themes including: " + ", ".join(selected_likes) + ". Ensure that the generated prompt includes clear instructions for crafting an engaging narrative with scenes narrated in detail, emotional depth, worldbuilding, conflict resolution, and character arc. Emphasize the importance of vivid imagery, dynamic events, character struggles and growth, and leaving the reader eager for more. Explore the selected themes and create a story that resonates with the audience."
     response = openai.Completion.create(
-        model="gpt-3.5-turbo-instruct",
-        prompt=prompt,
-        max_tokens=1000
+    model="gpt-3.5-turbo-instruct",
+    prompt=prompt,
+    max_tokens=1000
     )
 
-    story_prompt = "You are a short story writer don't exceed 200 words " + response.choices[0].text.strip()
+    story_prompt = "Craft an engaging short story, not exceeding two minutes in narration, also the story should have a title the first line should be the title don't specify it as title, based on the following " + response.choices[0].text.strip()
     response = openai.Completion.create(
-        model="gpt-3.5-turbo-instruct",
-        prompt=story_prompt,
-        max_tokens=1000
+    model="gpt-3.5-turbo-instruct",
+    prompt=story_prompt,
+    max_tokens=1000
     )
-
-    story = response.choices[0].text.strip()
+    title = response.choices[0].text.strip()
+    story = response.choices[1].text.strip()
     sentences = nltk.sent_tokenize(story)
 
     sid = SentimentIntensityAnalyzer()
     sentences_data = []
-
+    sentences_data.append({
+        'title': title
+    })
     for sentence in sentences:
         sentiment_score = sid.polarity_scores(sentence)
         emotion = map_to_emotion(sentiment_score)
