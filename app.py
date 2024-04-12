@@ -60,9 +60,6 @@ def generate_story(selected_likes):
 
     sid = SentimentIntensityAnalyzer()
     sentences_data = []
-    sentences_data.append({
-        'title': title
-    })
     for sentence in sentences:
         sentiment_score = sid.polarity_scores(sentence)
         emotion = map_to_emotion(sentiment_score)
