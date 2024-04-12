@@ -49,14 +49,13 @@ def generate_story(selected_likes):
     max_tokens=1000
     )
 
-    story_prompt = "Craft an engaging short story, not exceeding two minutes in narration, also the story should have a title the first line should be the title don't specify it as title, based on the following " + response.choices[0].text.strip()
+    story_prompt = "Craft an engaging short story, not exceeding two minutes in narration, based on the following " + response.choices[0].text.strip()+ ". additionaly  the story should have a title. give the title in the first line without any prefix title."
     response = openai.Completion.create(
     model="gpt-3.5-turbo-instruct",
     prompt=story_prompt,
     max_tokens=1000
     )
-    title = response.choices[0].text.strip()
-    story = response.choices[1].text.strip()
+    title, story =response.choices[0].text.strip().split('\n\n', 1)
     sentences = nltk.sent_tokenize(story)
 
     sid = SentimentIntensityAnalyzer()
