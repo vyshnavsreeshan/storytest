@@ -42,14 +42,14 @@ def map_to_emotion(sentiment_score):
 
 
 def generate_story(selected_likes):
-    prompt = "Create a prompt for generating a short story with themes including: " + ", ".join(selected_likes) + ". Ensure that the generated prompt includes clear instructions for crafting an engaging narrative with scenes narrated in detail, emotional depth, worldbuilding, conflict resolution, and character arc. Emphasize the importance of vivid imagery, dynamic events, character struggles and growth, and leaving the reader eager for more. Explore the selected themes and create a story that resonates with the audience."
+    prompt = "Create a prompt for generating a short story with themes including: " + ", ".join(selected_likes) + ". Ensure that the generated prompt includes clear instructions for crafting an engaging narrative. Emphasize the importance of vivid imagery leaving the reader eager for more. Explore the selected themes and create a story that resonates with the audience."
     response = openai.Completion.create(
     model="gpt-3.5-turbo-instruct",
     prompt=prompt,
     max_tokens=1000
     )
 
-    story_prompt = "Craft an engaging short story, not exceeding two minutes in narration, based on the following " + response.choices[0].text.strip()+ ". additionaly  the story should have a title. give the title in the first line without any prefix title."
+    story_prompt = "Craft an engaging, meaningful short story, not exceeding two minutes in narration, based on the following " + response.choices[0].text.strip()+ ". additionaly  the story should have a title. give the title in the first line without any prefix title."
     response = openai.Completion.create(
     model="gpt-3.5-turbo-instruct",
     prompt=story_prompt,
@@ -60,6 +60,9 @@ def generate_story(selected_likes):
 
     sid = SentimentIntensityAnalyzer()
     sentences_data = []
+    sentences_data.append({
+        'title': title
+    })
     for sentence in sentences:
         sentiment_score = sid.polarity_scores(sentence)
         emotion = map_to_emotion(sentiment_score)
