@@ -10,35 +10,38 @@ nltk.download('vader_lexicon')
 nltk.download('punkt')
 
 emotions = {
-    'neutral': {'rate': 0.5, 'volume': 1.0, 'pitch': 1.0},
-    'happy': {'rate': 0.5, 'volume': 0.6, 'pitch': 1.2},
-    'sad': {'rate': 0.4, 'volume': 0.4, 'pitch': 0.8},
-    'angry': {'rate': 0.6, 'volume': 0.75, 'pitch': 1.5},
-    'excited': {'rate': 0.6, 'volume': 0.6, 'pitch': 1.2},
-    'fearful': {'rate': 0.5, 'volume': 0.5, 'pitch': 1.0},
-    'calm': {'rate': 0.45, 'volume': 0.4, 'pitch': 0.8},
-    'surprised': {'rate': 0.6, 'volume': 0.8, 'pitch': 1.0},
-    'tender': {'rate': 0.4, 'volume': 0.45, 'pitch': 0.9}
+    'neutral': {'rate': 0.5, 'volume': 0.6, 'pitch': 1.0},
+    'excited': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.0},
+    'happy': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.1},
+    'sad': {'rate': 0.5, 'volume': 0.5, 'pitch': 0.8},
+    'surprised': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.5},
+    'angry': {'rate': 0.5, 'volume': 0.75, 'pitch': 1.0},   
 }
 
 def map_to_emotion(sentiment_score):
     compound_score = sentiment_score['compound']
+    magnitude = abs(compound_score)
+    
     if compound_score >= 0.2:
-        return 'excited'
-    elif compound_score <= -0.2:
-        return 'fearful'
-    elif compound_score >= 0.1:
-        return 'happy'
-    elif compound_score <= -0.1:
-        return 'sad'
-    elif -0.1 < compound_score < 0.1:
-        return 'neutral'
+        if magnitude >= 0.5:
+            return 'excited'
+        else:
+            return 'happy'
     elif compound_score >= 0.05:
-        return 'surprised'
-    elif compound_score <= -0.05:
+        if magnitude >= 0.5:
+            return 'surprised'
+        else:
+            return 'happy'
+    elif compound_score <= -0.2:
+        if magnitude >= 0.5:
+            return 'sad'
+        else:
+            return 'angry'
+    elif compound_score <= -0.1:
         return 'angry'
     else:
-        return 'calm'
+        return 'neutral'
+
 
 
 def generate_story(selected_likes):
