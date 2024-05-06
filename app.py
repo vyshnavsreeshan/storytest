@@ -11,11 +11,11 @@ nltk.download('punkt')
 
 emotions = {
     'neutral': {'rate': 0.5, 'volume': 0.6, 'pitch': 1.0},
-    'excited': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.0},
-    'happy': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.1},
-    'sad': {'rate': 0.5, 'volume': 0.5, 'pitch': 0.8},
-    'surprised': {'rate': 0.5, 'volume': 0.7, 'pitch': 1.5},
-    'angry': {'rate': 0.5, 'volume': 0.75, 'pitch': 1.0},   
+    'excited': {'rate': 0.55, 'volume': 0.85, 'pitch': 1.125},
+    'happy': {'rate': 0.5, 'volume': 0.75, 'pitch': 1.05},
+    'sad': {'rate': 0.45, 'volume': 0.45, 'pitch': 0.775},
+    'surprised': {'rate': 0.55, 'volume': 0.75, 'pitch': 1.4},
+    'angry': {'rate': 0.525, 'volume': 0.8, 'pitch': 0.95}
 }
 
 def map_to_emotion(sentiment_score):
